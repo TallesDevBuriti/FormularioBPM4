@@ -46,7 +46,7 @@ function _init(data, info) {
 
 
             console.log(data)
-            console.log(matches)
+            console.log(objectsArray)
         })
     });
 }
