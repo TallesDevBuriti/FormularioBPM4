@@ -21,11 +21,32 @@ function _init(data, info) {
         });
         info.getInfoFromProcessVariables().then(function(data) {
             const regex = /\{[^}]*\}/g;
-            const parts = data[0].value.match(regex);
+            const matches  = data[0].value.match(regex);
+
+            const objectsArray = [];
+
+            // Para cada parte encontrada, removemos as chaves e criamos um objeto
+            matches.forEach(match => {
+                // Remover as chaves
+                const cleanMatch = match.slice(1, -1);
+                
+                // Separar as propriedades
+                const properties = cleanMatch.split(', ');
+                const obj = {};
+
+                // Construir o objeto
+                properties.forEach(property => {
+                    const [key, value] = property.split('=');
+                    obj[key.trim()] = value.trim();
+                });
+
+                // Adicionar o objeto ao array
+                objectsArray.push(obj);
+            });
 
 
             console.log(data)
-            console.log(parts)
+            console.log(matches)
         })
     });
 }
